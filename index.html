@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Seating Chart</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #bfa03d; /* deep gold */
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #bfa03d;
+    }
+    input[type="text"] {
+      padding: 10px 15px;
+      border: 2px solid #bfa03d;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #111;
+      color: #fff;
+      width: 250px;
+      margin-bottom: 20px;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #550012; /* deeper burgundy */
+    }
+    #result {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #bfa03d;
+    }
+  </style>
+</head>
+<body>
+  <h1>Find Your Table</h1>
+  <input type="text" id="nameInput" placeholder="Enter your first name" />
+  <div id="result"></div>
+
+  <script>
+    // Sample guest list
+    const guests = [
+      { name: "Alina Lifshits", table: 5 },
+      { name: "Michael Cohen", table: 2 },
+      { name: "Sarah Smith", table: 7 },
+      { name: "Sarah Johnson", table: 3 },
+      { name: "David Lee", table: 1 }
+    ];
+
+    const input = document.getElementById('nameInput');
+    const resultDiv = document.getElementById('result');
+
+    input.addEventListener('input', () => {
+      const query = input.value.toLowerCase().trim();
+      if (query.length === 0) {
+        resultDiv.textContent = "";
+        return;
+      }
+      const matches = guests.filter(g => g.name.toLowerCase().includes(query));
+      if (matches.length > 0) {
+        resultDiv.innerHTML = matches.map(m => `${m.name} → Table ${m.table}`).join('<br>');
+      } else {
+        resultDiv.textContent = "No match found";
+      }
+    });
+  </script>
+</body>
+</html>
